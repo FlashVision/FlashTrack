@@ -1,21 +1,21 @@
 """FlashTrack Predictor — run multi-object tracking on video."""
 
+import logging
 import os
 import time
-import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Optional, Tuple
 
 import cv2
 import numpy as np
 import torch
 
 from flashtrack.cfg import get_config
-from flashtrack.models.tracker import FlashTracker
-from flashtrack.models.byte_tracker import ByteTracker
-from flashtrack.models.sort_tracker import SORTTracker
-from flashtrack.models.deepsort_tracker import DeepSORTTracker
 from flashtrack.data.transforms import InferenceTransform
+from flashtrack.models.byte_tracker import ByteTracker
+from flashtrack.models.deepsort_tracker import DeepSORTTracker
+from flashtrack.models.sort_tracker import SORTTracker
+from flashtrack.models.tracker import FlashTracker
 from flashtrack.utils.visualization import draw_tracks
 
 logger = logging.getLogger(__name__)

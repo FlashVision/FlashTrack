@@ -156,7 +156,7 @@ class SORTTracker:
 
         # Hungarian matching
         matched_indices = []
-        unmatched_tracks = list(range(len(self.tracks)))
+        list(range(len(self.tracks)))
         unmatched_dets = list(range(len(detections)))
 
         if cost_matrix.size > 0:
@@ -167,7 +167,7 @@ class SORTTracker:
 
             matched_t = {m[0] for m in matched_indices}
             matched_d = {m[1] for m in matched_indices}
-            unmatched_tracks = [i for i in range(len(self.tracks)) if i not in matched_t]
+            [i for i in range(len(self.tracks)) if i not in matched_t]
             unmatched_dets = [i for i in range(len(detections)) if i not in matched_d]
 
         # Update matched tracks

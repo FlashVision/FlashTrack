@@ -28,9 +28,10 @@ def cmd_version(args):
 
 def cmd_settings(args):
     """Print system settings and environment info."""
-    import torch
     import platform
+
     import numpy as np
+    import torch
 
     _print_banner()
     print(_colored("System", "bold"))
@@ -75,14 +76,14 @@ def cmd_check(args):
         errors.append(str(e))
 
     try:
-        from flashtrack.engine import Trainer, Predictor, Exporter, Validator  # noqa: F401
+        from flashtrack.engine import Exporter, Predictor, Trainer, Validator  # noqa: F401
         print(f"  {_colored('✓', 'green')} engine (Trainer, Predictor, Exporter, Validator)")
     except ImportError as e:
         print(f"  {_colored('✗', 'red')} engine: {e}")
         errors.append(str(e))
 
     try:
-        from flashtrack.models import ByteTracker, SORTTracker, DeepSORTTracker  # noqa: F401
+        from flashtrack.models import ByteTracker, DeepSORTTracker, SORTTracker  # noqa: F401
         print(f"  {_colored('✓', 'green')} trackers (ByteTracker, SORT, DeepSORT)")
     except ImportError as e:
         print(f"  {_colored('✗', 'red')} trackers: {e}")
@@ -97,6 +98,7 @@ def cmd_check(args):
 
     try:
         import torch
+
         from flashtrack.cfg import get_config
         from flashtrack.models import build_model
         cfg = get_config(model_size="m", input_size=(128, 64), num_ids=10)

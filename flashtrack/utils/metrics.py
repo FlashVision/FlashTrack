@@ -3,8 +3,9 @@
 MOTA, MOTP, IDF1, ID switches, and track fragmentation.
 """
 
+from typing import Dict, List
+
 import numpy as np
-from typing import Dict, List, Tuple
 
 
 def compute_iou(box1: np.ndarray, box2: np.ndarray) -> float:

@@ -1,8 +1,9 @@
 """Checkpoint utilities for saving and loading models."""
 
 import os
-import torch
 from typing import Dict
+
+import torch
 
 
 def save_checkpoint(

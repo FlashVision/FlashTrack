@@ -222,7 +222,7 @@ class DeepSORTTracker:
         remaining_dets = detections[u_dets_c] if len(u_dets_c) > 0 else np.empty((0, 4))
         remaining_scores = scores[u_dets_c] if len(u_dets_c) > 0 else np.array([])
         remaining_feats = [features[i] for i in u_dets_c]
-        remaining_cls = class_ids[u_dets_c] if len(u_dets_c) > 0 else np.array([], dtype=int)
+        class_ids[u_dets_c] if len(u_dets_c) > 0 else np.array([], dtype=int)
 
         matches_u, u_tracks_u, u_dets_u = self._match(
             unconfirmed, remaining_dets, remaining_scores, remaining_feats, use_appearance=False

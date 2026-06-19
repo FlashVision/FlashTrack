@@ -1,7 +1,7 @@
 """DataLoader factory for FlashTrack."""
 
 import logging
-from typing import Optional, Tuple
+from typing import Tuple
 
 from torch.utils.data import DataLoader
 

@@ -51,7 +51,7 @@ class TripletLoss(nn.Module):
         else:
             dist_mat = torch.cdist(embeddings, embeddings, p=2)
 
-        n = embeddings.size(0)
+        embeddings.size(0)
         mask_pos = labels.unsqueeze(0) == labels.unsqueeze(1)
         mask_neg = ~mask_pos
 

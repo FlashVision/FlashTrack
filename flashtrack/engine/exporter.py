@@ -1,7 +1,7 @@
 """FlashTrack Exporter — export ReID models to ONNX (and other formats)."""
 
-import os
 import logging
+import os
 from typing import Optional, Tuple
 
 import torch

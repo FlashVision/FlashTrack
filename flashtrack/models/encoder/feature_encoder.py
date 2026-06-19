@@ -6,7 +6,6 @@ suitable for the ReID head via lightweight convolution and pooling.
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 class FeatureEncoder(nn.Module):

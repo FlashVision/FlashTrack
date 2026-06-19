@@ -1,10 +1,8 @@
 """Dataset preparation utilities for MOT format data."""
 
 import logging
-import os
 import shutil
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 

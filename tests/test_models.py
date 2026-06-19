@@ -1,7 +1,6 @@
 """Tests for FlashTrack models."""
 
 import torch
-import pytest
 
 
 def test_flashtracker_forward_m():
@@ -15,9 +14,9 @@ def test_flashtracker_forward_m():
     model.eval()
     x = torch.randn(2, 3, 128, 64)
     with torch.no_grad():
-        out = model(x)
-    assert "embedding" in out
-    assert out["embedding"].shape == (2, 128)
+        out = model(x, return_logits=True)
+    assert "embeddings" in out
+    assert out["embeddings"].shape == (2, 128)
     assert "logits" in out
     assert out["logits"].shape == (2, 100)
 
@@ -34,7 +33,7 @@ def test_flashtracker_forward_m05x():
     x = torch.randn(1, 3, 128, 64)
     with torch.no_grad():
         out = model(x)
-    assert out["embedding"].shape == (1, 128)
+    assert out["embeddings"].shape == (1, 128)
     assert "logits" not in out
 
 
@@ -49,8 +48,8 @@ def test_flashtracker_forward_m15x():
     model.eval()
     x = torch.randn(1, 3, 128, 64)
     with torch.no_grad():
-        out = model(x)
-    assert out["embedding"].shape == (1, 256)
+        out = model(x, return_logits=True)
+    assert out["embeddings"].shape == (1, 256)
 
 
 def test_model_size_ordering():
@@ -73,18 +72,19 @@ def test_extract_features():
         backbone_size="1.0x", reid_dim=128, encoder_channels=256,
         num_ids=0, pretrained=False,
     )
+    model.eval()
     x = torch.randn(4, 3, 128, 64)
-    feats = model.extract_features(x)
+    with torch.no_grad():
+        feats = model.extract(x)
     assert feats.shape == (4, 128)
-    # Check L2 normalization
     norms = feats.norm(dim=1)
     assert torch.allclose(norms, torch.ones(4), atol=0.01)
 
 
 def test_lora_application():
     """Test LoRA can be applied to FlashTracker."""
-    from flashtrack.models.tracker import FlashTracker
     from flashtrack.models.lora import apply_lora
+    from flashtrack.models.tracker import FlashTracker
 
     model = FlashTracker(
         backbone_size="1.0x", reid_dim=128, encoder_channels=256,
@@ -98,12 +98,11 @@ def test_lora_application():
     assert total_after > total_before
     assert trainable < total_after
 
-    # Forward pass still works
     model.eval()
     x = torch.randn(1, 3, 128, 64)
     with torch.no_grad():
         out = model(x)
-    assert out["embedding"].shape == (1, 128)
+    assert out["embeddings"].shape == (1, 128)
 
 
 def test_build_model():
@@ -117,4 +116,4 @@ def test_build_model():
     x = torch.randn(1, 3, 128, 64)
     with torch.no_grad():
         out = model(x)
-    assert out["embedding"].shape == (1, 128)
+    assert out["embeddings"].shape == (1, 128)

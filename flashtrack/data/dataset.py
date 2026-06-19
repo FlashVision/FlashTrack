@@ -5,10 +5,9 @@ Reads MOT17-style data:
   <seq>/gt/gt.txt          — ground truth (frame, id, x, y, w, h, conf, cls, vis)
 """
 
-import os
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 
 import cv2
 import numpy as np

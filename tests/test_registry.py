@@ -1,6 +1,6 @@
 """Tests for FlashTrack registry."""
 
-from flashtrack.registry import Registry, BACKBONES, ENCODERS, HEADS, LOSSES, TRACKERS
+from flashtrack.registry import BACKBONES, ENCODERS, HEADS, LOSSES, TRACKERS, Registry
 
 
 def test_registry_register_and_build():

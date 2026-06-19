@@ -1,29 +1,33 @@
 """FlashTrack Trainer — ReID feature learning with triplet + classification loss."""
 
-import os
 import copy
-import math
 import logging
+import math
+import os
 from typing import Any, Dict, List, Optional
 
-import numpy as np
 import torch
 import torch.nn as nn
 
 from flashtrack.cfg import get_config
-from flashtrack.models.tracker import FlashTracker
-from flashtrack.models.lora import apply_lora, apply_qlora, merge_lora_weights, get_lora_state_dict
 from flashtrack.data import create_dataloader
-from flashtrack.losses.triplet_loss import TripletLoss
 from flashtrack.losses.classification_loss import ClassificationLoss
+from flashtrack.losses.triplet_loss import TripletLoss
+from flashtrack.models.lora import apply_lora, apply_qlora, get_lora_state_dict, merge_lora_weights
+from flashtrack.models.tracker import FlashTracker
 from flashtrack.utils import (
-    save_checkpoint, load_checkpoint, save_weights_only, save_inference_weights,
-    setup_logger, AverageMeter,
+    AverageMeter,
+    load_checkpoint,
+    save_checkpoint,
+    save_inference_weights,
+    setup_logger,
 )
 from flashtrack.utils.torchtune_optim import (
-    apply_activation_checkpointing,
     ActivationOffloadHook,
+    apply_activation_checkpointing,
     create_optimizer,
+)
+from flashtrack.utils.torchtune_optim import (
     compile_model as torchtune_compile,
 )
 

@@ -1,7 +1,7 @@
 """Visualization utilities for multi-object tracking."""
 
 import colorsys
-from typing import Dict, List, Tuple
+from typing import Dict, Tuple
 
 import cv2
 import numpy as np

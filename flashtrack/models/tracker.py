@@ -6,7 +6,7 @@ suitable for multi-object tracking via appearance matching.
 """
 
 import logging
-from typing import Dict, Optional, Tuple
+from typing import Dict, Tuple
 
 import torch
 import torch.nn as nn
@@ -64,7 +64,7 @@ class FlashTracker(nn.Module):
 
         in_channels = BACKBONE_LAST_CHANNELS.get(backbone_size, 464)
 
-        self.backbone = ShuffleNetV2(size=backbone_size, pretrained=pretrained)
+        self.backbone = ShuffleNetV2(model_size=backbone_size, pretrained=pretrained)
         self.encoder = FeatureEncoder(in_channels=in_channels, out_channels=encoder_channels)
         self.head = ReIDHead(
             in_channels=encoder_channels,
@@ -90,7 +90,7 @@ class FlashTracker(nn.Module):
         encoded = self.encoder(features)
         result = self.head(encoded)
 
-        output = {"embeddings": result["embeddings"]}
+        output = {"embeddings": result["embedding"]}
         if return_logits and "logits" in result:
             output["logits"] = result["logits"]
         return output
@@ -153,6 +153,7 @@ class FlashTracker(nn.Module):
 
 
 def build_model(
+    config=None,
     backbone_size: str = "1.0x",
     encoder_channels: int = 256,
     reid_dim: int = 128,
@@ -160,7 +161,18 @@ def build_model(
     pretrained: bool = True,
     input_size: Tuple[int, int] = (128, 64),
 ) -> FlashTracker:
-    """Factory function for building a FlashTracker model."""
+    """Factory function for building a FlashTracker model.
+
+    Can be called with a Config object or with keyword arguments directly.
+    """
+    if config is not None:
+        backbone_size = getattr(config.model, "backbone_size", backbone_size)
+        encoder_channels = getattr(config.model, "encoder_channels", encoder_channels)
+        reid_dim = getattr(config.model, "reid_dim", reid_dim)
+        num_ids = getattr(config.model, "num_ids", num_ids)
+        pretrained = getattr(config.model, "pretrained", pretrained)
+        input_size = getattr(config.model, "input_size", input_size)
+
     return FlashTracker(
         backbone_size=backbone_size,
         encoder_channels=encoder_channels,

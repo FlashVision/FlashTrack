@@ -12,7 +12,7 @@ optimal bipartite matching.
 from __future__ import annotations
 
 import logging
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 import numpy as np
 from scipy.optimize import linear_sum_assignment

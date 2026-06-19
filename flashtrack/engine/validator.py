@@ -1,17 +1,14 @@
 """FlashTrack Validator — compute MOT metrics (MOTA, MOTP, IDF1)."""
 
 import logging
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
-import numpy as np
 import torch
 import torch.nn as nn
 
 from flashtrack.cfg import get_config
-from flashtrack.models.tracker import FlashTracker
 from flashtrack.data.dataset import MOTDataset
-from flashtrack.utils import AverageMeter
-from flashtrack.utils.metrics import compute_mota, compute_motp, compute_idf1, compute_id_switches
+from flashtrack.models.tracker import FlashTracker
 
 logger = logging.getLogger(__name__)
 

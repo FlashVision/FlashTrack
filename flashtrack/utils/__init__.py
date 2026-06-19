@@ -1,15 +1,15 @@
-from .visualization import draw_tracks, draw_boxes, TRACK_COLORS
-from .metrics import compute_mota, compute_motp, compute_idf1
-from .checkpoint import save_checkpoint, load_checkpoint, save_weights_only, save_inference_weights
-from .logger import setup_logger, AverageMeter
+from .checkpoint import load_checkpoint, save_checkpoint, save_inference_weights, save_weights_only
 from .kalman_filter import KalmanFilter
+from .logger import AverageMeter, setup_logger
+from .metrics import compute_idf1, compute_mota, compute_motp
 from .torchtune_optim import (
-    apply_activation_checkpointing,
     ActivationOffloadHook,
-    create_optimizer,
+    apply_activation_checkpointing,
     compile_model,
+    create_optimizer,
     log_memory_stats,
 )
+from .visualization import TRACK_COLORS, draw_boxes, draw_tracks
 
 __all__ = [
     "draw_tracks", "draw_boxes", "TRACK_COLORS",
