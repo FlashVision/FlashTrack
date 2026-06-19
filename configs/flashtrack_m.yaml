@@ -1,0 +1,34 @@
+# FlashTrack-m: Standard model (ShuffleNetV2 1.0x, ReID dim 128)
+
+model:
+  backbone_size: "1.0x"
+  reid_dim: 128
+  encoder_channels: 256
+  input_size: [128, 64]
+  num_ids: 500
+
+data:
+  train_images: data/MOT17/train
+  val_images: data/MOT17/val
+  num_workers: 4
+
+train:
+  epochs: 120
+  batch_size: 64
+  learning_rate: 0.0003
+  weight_decay: 0.0005
+  warmup_epochs: 5
+  val_interval: 5
+  save_dir: workspace/flashtrack_m
+  grad_clip: 10.0
+  triplet_weight: 1.0
+  classification_weight: 0.5
+  triplet_margin: 0.3
+
+augment:
+  scale: [0.9, 1.1]
+  flip_prob: 0.5
+  brightness: 0.2
+  contrast: [0.8, 1.2]
+  saturation: [0.8, 1.2]
+  random_erasing_prob: 0.5

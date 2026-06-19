@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flashtrack"
+version = "1.0.0"
+description = "Ultra-lightweight real-time multi-object tracking"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Gaurav Goswami"},
+]
+keywords = ["tracking", "MOT", "ByteTrack", "SORT", "DeepSORT", "ReID", "computer-vision"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+dependencies = [
+    "torch>=2.0",
+    "torchvision>=0.15",
+    "numpy>=1.24",
+    "opencv-python>=4.8",
+    "scipy>=1.10",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1",
+    "build",
+]
+export = [
+    "onnx>=1.14",
+    "onnxsim>=0.4",
+]
+all = [
+    "flashtrack[dev,export]",
+    "tensorboard>=2.14",
+    "bitsandbytes>=0.41",
+]
+
+[project.scripts]
+flashtrack = "flashtrack.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/FlashVision/FlashTrack"
+Documentation = "https://github.com/FlashVision/FlashTrack/wiki"
+Repository = "https://github.com/FlashVision/FlashTrack"
+Issues = "https://github.com/FlashVision/FlashTrack/issues"
+
+[tool.setuptools.packages.find]
+include = ["flashtrack*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
