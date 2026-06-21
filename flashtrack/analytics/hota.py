@@ -9,7 +9,8 @@ References:
 """
 
 import logging
-from typing import Dict, List, Optional, Set, Tuple
+import math
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 from scipy.optimize import linear_sum_assignment
@@ -179,9 +180,6 @@ def compute_hota(
     }
 
 
-import math
-
-
 def _compute_association_accuracy(
     gt_to_pred: Dict[int, List[int]],
     pred_to_gt: Dict[int, List[int]],
@@ -199,7 +197,7 @@ def _compute_association_accuracy(
         return 0.0
 
     all_gt_ids = set(gt_to_pred.keys())
-    all_pred_ids = set(pred_to_gt.keys())
+    set(pred_to_gt.keys())
 
     ass_scores = []
 

@@ -8,7 +8,7 @@ Provides methods to estimate and compensate for camera ego-motion:
 
 import logging
 from enum import Enum
-from typing import List, Optional, Tuple
+from typing import Optional, Tuple
 
 import numpy as np
 

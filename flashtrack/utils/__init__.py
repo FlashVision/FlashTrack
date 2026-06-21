@@ -1,4 +1,5 @@
 from .checkpoint import load_checkpoint, save_checkpoint, save_inference_weights, save_weights_only
+from .cmc import CameraMotionCompensator, compose_warp, invert_warp
 from .kalman_filter import KalmanFilter
 from .logger import AverageMeter, setup_logger
 from .metrics import compute_idf1, compute_mota, compute_motp
@@ -10,7 +11,6 @@ from .torchtune_optim import (
     log_memory_stats,
 )
 from .visualization import TRACK_COLORS, draw_boxes, draw_tracks
-from .cmc import CameraMotionCompensator, compose_warp, invert_warp
 
 __all__ = [
     "draw_tracks", "draw_boxes", "TRACK_COLORS",
