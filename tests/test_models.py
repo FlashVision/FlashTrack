@@ -8,8 +8,12 @@ def test_flashtracker_forward_m():
     from flashtrack.models.tracker import FlashTracker
 
     model = FlashTracker(
-        backbone_size="1.0x", reid_dim=128, encoder_channels=256,
-        num_ids=100, pretrained=False, input_size=(128, 64),
+        backbone_size="1.0x",
+        reid_dim=128,
+        encoder_channels=256,
+        num_ids=100,
+        pretrained=False,
+        input_size=(128, 64),
     )
     model.eval()
     x = torch.randn(2, 3, 128, 64)
@@ -26,8 +30,12 @@ def test_flashtracker_forward_m05x():
     from flashtrack.models.tracker import FlashTracker
 
     model = FlashTracker(
-        backbone_size="0.5x", reid_dim=128, encoder_channels=128,
-        num_ids=0, pretrained=False, input_size=(128, 64),
+        backbone_size="0.5x",
+        reid_dim=128,
+        encoder_channels=128,
+        num_ids=0,
+        pretrained=False,
+        input_size=(128, 64),
     )
     model.eval()
     x = torch.randn(1, 3, 128, 64)
@@ -42,8 +50,12 @@ def test_flashtracker_forward_m15x():
     from flashtrack.models.tracker import FlashTracker
 
     model = FlashTracker(
-        backbone_size="1.5x", reid_dim=256, encoder_channels=384,
-        num_ids=50, pretrained=False, input_size=(128, 64),
+        backbone_size="1.5x",
+        reid_dim=256,
+        encoder_channels=384,
+        num_ids=50,
+        pretrained=False,
+        input_size=(128, 64),
     )
     model.eval()
     x = torch.randn(1, 3, 128, 64)
@@ -69,8 +81,11 @@ def test_extract_features():
     from flashtrack.models.tracker import FlashTracker
 
     model = FlashTracker(
-        backbone_size="1.0x", reid_dim=128, encoder_channels=256,
-        num_ids=0, pretrained=False,
+        backbone_size="1.0x",
+        reid_dim=128,
+        encoder_channels=256,
+        num_ids=0,
+        pretrained=False,
     )
     model.eval()
     x = torch.randn(4, 3, 128, 64)
@@ -87,8 +102,11 @@ def test_lora_application():
     from flashtrack.models.tracker import FlashTracker
 
     model = FlashTracker(
-        backbone_size="1.0x", reid_dim=128, encoder_channels=256,
-        num_ids=0, pretrained=False,
+        backbone_size="1.0x",
+        reid_dim=128,
+        encoder_channels=256,
+        num_ids=0,
+        pretrained=False,
     )
     total_before = sum(p.numel() for p in model.parameters())
     model = apply_lora(model, rank=4, target_modules=["backbone", "encoder"])

@@ -10,19 +10,25 @@ def test_bytetracker_basic():
     tracker = ByteTracker(track_thresh=0.3, track_buffer=30, match_thresh=0.8)
 
     # Frame 1: two objects (tlwh format)
-    dets1 = np.array([
-        [100, 100, 100, 100],
-        [300, 300, 100, 100],
-    ], dtype=np.float32)
+    dets1 = np.array(
+        [
+            [100, 100, 100, 100],
+            [300, 300, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores1 = np.array([0.9, 0.8], dtype=np.float32)
     tracks1 = tracker.update(dets1, scores1)
     assert isinstance(tracks1, list)
 
     # Frame 2: same objects moved slightly
-    dets2 = np.array([
-        [105, 105, 100, 100],
-        [305, 305, 100, 100],
-    ], dtype=np.float32)
+    dets2 = np.array(
+        [
+            [105, 105, 100, 100],
+            [305, 305, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores2 = np.array([0.9, 0.85], dtype=np.float32)
     tracks2 = tracker.update(dets2, scores2)
     assert isinstance(tracks2, list)
@@ -47,19 +53,25 @@ def test_sort_tracker_basic():
 
     tracker = SORTTracker(max_age=30, min_hits=1, iou_threshold=0.3)
 
-    dets = np.array([
-        [50, 50, 100, 100],
-        [200, 200, 100, 100],
-    ], dtype=np.float32)
+    dets = np.array(
+        [
+            [50, 50, 100, 100],
+            [200, 200, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores = np.array([0.95, 0.85], dtype=np.float32)
     tracks = tracker.update(dets, scores)
     assert isinstance(tracks, list)
 
     # Move objects
-    dets2 = np.array([
-        [55, 55, 100, 100],
-        [205, 205, 100, 100],
-    ], dtype=np.float32)
+    dets2 = np.array(
+        [
+            [55, 55, 100, 100],
+            [205, 205, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores2 = np.array([0.9, 0.8], dtype=np.float32)
     tracks2 = tracker.update(dets2, scores2)
     assert isinstance(tracks2, list)
@@ -73,9 +85,12 @@ def test_deepsort_tracker_without_features():
 
     tracker = DeepSORTTracker(max_age=30, n_init=1, max_iou_distance=0.7)
 
-    dets = np.array([
-        [100, 100, 100, 100],
-    ], dtype=np.float32)
+    dets = np.array(
+        [
+            [100, 100, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores = np.array([0.9], dtype=np.float32)
     tracks = tracker.update(dets, scores, features=None)
     assert isinstance(tracks, list)
@@ -89,10 +104,13 @@ def test_deepsort_tracker_with_features():
 
     tracker = DeepSORTTracker(max_age=30, n_init=1, max_cosine_distance=0.5)
 
-    dets = np.array([
-        [100, 100, 100, 100],
-        [300, 300, 100, 100],
-    ], dtype=np.float32)
+    dets = np.array(
+        [
+            [100, 100, 100, 100],
+            [300, 300, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores = np.array([0.9, 0.8], dtype=np.float32)
     features = np.random.randn(2, 128).astype(np.float32)
 
@@ -100,10 +118,13 @@ def test_deepsort_tracker_with_features():
     assert isinstance(tracks, list)
 
     # Second frame
-    dets2 = np.array([
-        [105, 105, 100, 100],
-        [305, 305, 100, 100],
-    ], dtype=np.float32)
+    dets2 = np.array(
+        [
+            [105, 105, 100, 100],
+            [305, 305, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores2 = np.array([0.9, 0.85], dtype=np.float32)
     features2 = features + np.random.randn(2, 128).astype(np.float32) * 0.1
     tracks2 = tracker.update(dets2, scores2, features=features2)

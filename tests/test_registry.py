@@ -53,7 +53,9 @@ def test_registry_duplicate():
         pass
 
     import pytest
+
     with pytest.raises(KeyError):
+
         @reg.register("Dup")
         class Dup2:
             pass

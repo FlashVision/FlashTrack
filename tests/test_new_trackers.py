@@ -8,22 +8,30 @@ def test_bot_sort_basic():
     from flashtrack.trackers.bot_sort import BoTSORTTracker
 
     tracker = BoTSORTTracker(
-        track_thresh=0.3, track_buffer=30,
-        match_thresh=0.8, cmc_method=None,
+        track_thresh=0.3,
+        track_buffer=30,
+        match_thresh=0.8,
+        cmc_method=None,
     )
 
-    dets1 = np.array([
-        [100, 100, 100, 100],
-        [300, 300, 100, 100],
-    ], dtype=np.float32)
+    dets1 = np.array(
+        [
+            [100, 100, 100, 100],
+            [300, 300, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores1 = np.array([0.9, 0.8], dtype=np.float32)
     tracks1 = tracker.update(dets1, scores1)
     assert isinstance(tracks1, list)
 
-    dets2 = np.array([
-        [105, 105, 100, 100],
-        [305, 305, 100, 100],
-    ], dtype=np.float32)
+    dets2 = np.array(
+        [
+            [105, 105, 100, 100],
+            [305, 305, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores2 = np.array([0.9, 0.85], dtype=np.float32)
     tracks2 = tracker.update(dets2, scores2)
     assert isinstance(tracks2, list)
@@ -35,7 +43,9 @@ def test_bot_sort_with_features():
     from flashtrack.trackers.bot_sort import BoTSORTTracker
 
     tracker = BoTSORTTracker(
-        track_thresh=0.3, lambda_iou=0.5, lambda_app=0.5,
+        track_thresh=0.3,
+        lambda_iou=0.5,
+        lambda_app=0.5,
         cmc_method=None,
     )
 
@@ -63,18 +73,24 @@ def test_oc_sort_basic():
 
     tracker = OCSORTTracker(max_age=30, min_hits=1, iou_threshold=0.3)
 
-    dets = np.array([
-        [50, 50, 100, 100],
-        [200, 200, 100, 100],
-    ], dtype=np.float32)
+    dets = np.array(
+        [
+            [50, 50, 100, 100],
+            [200, 200, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores = np.array([0.95, 0.85], dtype=np.float32)
     tracks = tracker.update(dets, scores)
     assert isinstance(tracks, list)
 
-    dets2 = np.array([
-        [55, 55, 100, 100],
-        [205, 205, 100, 100],
-    ], dtype=np.float32)
+    dets2 = np.array(
+        [
+            [55, 55, 100, 100],
+            [205, 205, 100, 100],
+        ],
+        dtype=np.float32,
+    )
     scores2 = np.array([0.9, 0.8], dtype=np.float32)
     tracks2 = tracker.update(dets2, scores2)
     assert isinstance(tracks2, list)
@@ -86,8 +102,11 @@ def test_oc_sort_ocr():
     from flashtrack.trackers.oc_sort import OCSORTTracker
 
     tracker = OCSORTTracker(
-        max_age=30, min_hits=1, iou_threshold=0.3,
-        use_ocm=True, use_ocr=True,
+        max_age=30,
+        min_hits=1,
+        iou_threshold=0.3,
+        use_ocm=True,
+        use_ocr=True,
     )
 
     for frame in range(5):
@@ -113,9 +132,12 @@ def test_ostrack_forward():
     from flashtrack.trackers.sot.ostrack import OSTrack
 
     model = OSTrack(
-        template_size=64, search_size=128,
-        patch_size=8, embed_dim=64,
-        depth=2, num_heads=4,
+        template_size=64,
+        search_size=128,
+        patch_size=8,
+        embed_dim=64,
+        depth=2,
+        num_heads=4,
         eliminate_layer=-1,
     )
     model.eval()
@@ -134,10 +156,14 @@ def test_ostrack_with_elimination():
     from flashtrack.trackers.sot.ostrack import OSTrack
 
     model = OSTrack(
-        template_size=64, search_size=128,
-        patch_size=8, embed_dim=64,
-        depth=4, num_heads=4,
-        eliminate_layer=2, keep_ratio=0.5,
+        template_size=64,
+        search_size=128,
+        patch_size=8,
+        embed_dim=64,
+        depth=4,
+        num_heads=4,
+        eliminate_layer=2,
+        keep_ratio=0.5,
     )
     model.eval()
 
@@ -152,9 +178,12 @@ def test_ostrack_predict_bbox():
     from flashtrack.trackers.sot.ostrack import OSTrack
 
     model = OSTrack(
-        template_size=64, search_size=128,
-        patch_size=8, embed_dim=64,
-        depth=2, num_heads=4,
+        template_size=64,
+        search_size=128,
+        patch_size=8,
+        embed_dim=64,
+        depth=2,
+        num_heads=4,
     )
 
     template = torch.randn(1, 3, 64, 64)
@@ -186,8 +215,10 @@ def test_hota_empty():
     from flashtrack.analytics.hota import compute_hota
 
     result = compute_hota(
-        [np.empty((0, 4))], [np.array([])],
-        [np.empty((0, 4))], [np.array([])],
+        [np.empty((0, 4))],
+        [np.array([])],
+        [np.empty((0, 4))],
+        [np.array([])],
     )
     assert result["HOTA"] == 0.0
 
