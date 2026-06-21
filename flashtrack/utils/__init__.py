@@ -10,6 +10,7 @@ from .torchtune_optim import (
     log_memory_stats,
 )
 from .visualization import TRACK_COLORS, draw_boxes, draw_tracks
+from .cmc import CameraMotionCompensator, compose_warp, invert_warp
 
 __all__ = [
     "draw_tracks", "draw_boxes", "TRACK_COLORS",
@@ -19,4 +20,5 @@ __all__ = [
     "KalmanFilter",
     "apply_activation_checkpointing", "ActivationOffloadHook",
     "create_optimizer", "compile_model", "log_memory_stats",
+    "CameraMotionCompensator", "compose_warp", "invert_warp",
 ]

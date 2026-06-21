@@ -11,3 +11,12 @@ __all__ = [
     "ShuffleNetV2", "FeatureEncoder", "ReIDHead",
     "ByteTracker", "SORTTracker", "DeepSORTTracker",
 ]
+
+# Import new trackers (these live under flashtrack.trackers)
+# to make them accessible from flashtrack.models namespace
+try:
+    from flashtrack.trackers import BoTSORTTracker, OCSORTTracker
+    from flashtrack.trackers.sot import OSTrack, TemplateSearchTracker
+    __all__ += ["BoTSORTTracker", "OCSORTTracker", "OSTrack", "TemplateSearchTracker"]
+except ImportError:
+    pass
